@@ -7,7 +7,15 @@ Public Class OutboundSKU : Inherits Upload
         End Get
     End Property
 
-    Sub New(r As SqlDataReader)
+    Public Overrides ReadOnly Property cmd As SqlCommand
+        Get
+            Return New SqlCommand(
+                        "SELECT * from v3pl_part", cn
+                    )
+        End Get
+    End Property
+
+    Sub New()
         With Me
             .Add("Record_Type", 0)
             .Add("Merge_Action", 1)
@@ -191,7 +199,7 @@ Public Class OutboundSKU : Inherits Upload
             .Add("Parcel_Packing_By_Piece", 179)
 
         End With
-        CreateMap(r)
+
 
     End Sub
 

@@ -3,15 +3,15 @@ Imports System.IO
 
 Public MustInherit Class Upload : Inherits Dictionary(Of String, Integer) : Implements IDisposable
 
-    MustOverride ReadOnly Property FileName As String
+    Overridable ReadOnly Property FileName As String
+    Overridable ReadOnly Property cmd As SqlCommand
+        Get
+            Return Nothing
+        End Get
+    End Property
 
-    Private sw As StreamWriter
-    Sub New()
-        sw = New StreamWriter(Path.Combine("d:", ThisFileName))
 
-    End Sub
-
-    Private ReadOnly Property ThisFileName As String
+    Public ReadOnly Property FileStr As String
         Get
             Return String.Format("{0}{1}.txt", FileName, DateDiff(DateInterval.Minute, #1/1/1988#, Now))
         End Get
@@ -33,7 +33,7 @@ Public MustInherit Class Upload : Inherits Dictionary(Of String, Integer) : Impl
 
     End Sub
 
-    Public Sub write(ByVal r As SqlDataReader)
+    Public Sub write(ByRef sw As StreamWriter, ByVal r As SqlDataReader)
         With sw
             For i As Integer = 0 To Count - 1
                 If map.Keys.Contains(i) Then
@@ -46,6 +46,8 @@ Public MustInherit Class Upload : Inherits Dictionary(Of String, Integer) : Impl
         End With
 
     End Sub
+
+
 
 #Region "IDisposable Support"
     Private disposedValue As Boolean ' To detect redundant calls

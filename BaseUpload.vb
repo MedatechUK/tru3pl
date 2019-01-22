@@ -10,19 +10,17 @@ Public MustInherit Class Upload : Inherits Dictionary(Of String, Integer) : Impl
         End Get
     End Property
 
-
     Public ReadOnly Property FileStr As String
         Get
             Return String.Format("{0}{1}.txt", FileName, DateDiff(DateInterval.Minute, #1/1/1988#, Now))
         End Get
     End Property
 
-    Public ReadOnly map As New Dictionary(Of Integer, Integer)
-    Public Sub CreateMap(r As SqlDataReader)
-
+    Public Function CreateMap(r As SqlDataReader) As Dictionary(Of Integer, Integer)
+        Dim ret As New Dictionary(Of Integer, Integer)
         For i As Integer = 0 To r.FieldCount - 1
             If Keys.Contains(r.GetName(i)) Then
-                map.Add(Me(r.GetName(i)), i)
+                ret.Add(Me(r.GetName(i)), i)
 
             Else
                 Console.WriteLine("Invalid column: {0}", r.GetName(i))
@@ -30,10 +28,11 @@ Public MustInherit Class Upload : Inherits Dictionary(Of String, Integer) : Impl
             End If
 
         Next
+        Return ret
 
-    End Sub
+    End Function
 
-    Public Sub write(ByRef sw As StreamWriter, ByVal r As SqlDataReader)
+    Public Sub write(ByRef sw As StreamWriter, ByVal map As Dictionary(Of Integer, Integer), ByVal r As SqlDataReader)
         With sw
             For i As Integer = 0 To Count - 1
                 If map.Keys.Contains(i) Then
@@ -41,7 +40,7 @@ Public MustInherit Class Upload : Inherits Dictionary(Of String, Integer) : Impl
                 End If
                 sw.Write(",")
             Next
-            sw.Write(vbCrLf)
+            sw.Write(sw.NewLine)
 
         End With
 
@@ -56,7 +55,7 @@ Public MustInherit Class Upload : Inherits Dictionary(Of String, Integer) : Impl
     Protected Overridable Sub Dispose(disposing As Boolean)
         If Not disposedValue Then
             If disposing Then
-                sw.Close()
+
             End If
 
             ' TODO: free unmanaged resources (unmanaged objects) and override Finalize() below.

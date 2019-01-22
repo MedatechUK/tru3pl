@@ -1,6 +1,10 @@
-﻿Public Class OutboundPOItems : Inherits Upload
+﻿Imports System.Data.SqlClient
 
-    Sub New()
+Public Class OutboundPOItems : Inherits Upload
+
+    Private _ord As Integer
+    Sub New(ORD As Integer)
+        _ord = ORD
         With Me
             .Add("Record_Type", 0)
             .Add("Merge_Action", 1)
@@ -61,5 +65,13 @@
             .Add("Nls_Calendar", 56)
         End With
     End Sub
+
+    Public Overrides ReadOnly Property cmd As SqlCommand
+        Get
+            Return New SqlCommand(
+                        String.Format("SELECT * from v3pl_poi({0})", _ord), cn2
+                    )
+        End Get
+    End Property
 
 End Class

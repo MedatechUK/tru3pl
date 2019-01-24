@@ -11,7 +11,7 @@ Public Class OutboundPO : Inherits Upload
     Public Overrides ReadOnly Property cmd As SqlCommand
         Get
             Return New SqlCommand(
-                        "SELECT * from v3pl_po", cn
+                        "SELECT * from v3pl_PO()", cn
                     )
         End Get
     End Property

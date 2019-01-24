@@ -70,6 +70,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseUpload.vb" />
+    <Compile Include="clArg.vb" />
+    <Compile Include="formats\outbound\OutboundSOItems.vb" />
+    <Compile Include="formats\outbound\OutboundSO.vb" />
     <Compile Include="Module1.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -86,9 +89,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="formats\OutboundPO.vb" />
-    <Compile Include="formats\OutboundPOItems.vb" />
-    <Compile Include="formats\OutboundSKU.vb" />
+    <Compile Include="formats\outbound\OutboundPO.vb" />
+    <Compile Include="formats\outbound\OutboundPOItems.vb" />
+    <Compile Include="formats\outbound\OutboundSKU.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -109,6 +112,12 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\syntax.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="functions.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

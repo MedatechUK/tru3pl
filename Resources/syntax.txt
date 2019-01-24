@@ -1,0 +1,9 @@
+
+tru3pl.exe
+	-[action_type] {-[action_type]}
+	-out [folder]
+
+-[action_type] sku, po or so
+
+-[folder] output location
+

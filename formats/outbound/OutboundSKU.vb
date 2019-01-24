@@ -10,7 +10,7 @@ Public Class OutboundSKU : Inherits Upload
     Public Overrides ReadOnly Property cmd As SqlCommand
         Get
             Return New SqlCommand(
-                        "SELECT * from v3pl_part", cn
+                        "SELECT * from v3pl_SKU()", cn
                     )
         End Get
     End Property

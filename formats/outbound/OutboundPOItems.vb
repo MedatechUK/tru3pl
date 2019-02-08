@@ -68,10 +68,13 @@ Public Class OutboundPOItems : Inherits Upload
 
     Public Overrides ReadOnly Property cmd As SqlCommand
         Get
-            Return New SqlCommand(
-                        String.Format("SELECT * from v3pl_poi({0})", _ord), cn2
-                    )
+            Dim ret = New SqlCommand(
+                String.Format("SELECT * from v3pl_poi({0})", _ord), cn2
+            )
+            ret.CommandTimeout = 500
+            Return ret
         End Get
+
     End Property
 
 End Class

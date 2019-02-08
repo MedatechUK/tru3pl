@@ -1,18 +1,21 @@
 ﻿Imports System.Data.SqlClient
 
+
 Public Class OutboundSO : Inherits Upload
 
     Public Overrides ReadOnly Property FileName As String
         Get
-            Return "PO"
+            Return "SO"
         End Get
     End Property
 
     Public Overrides ReadOnly Property cmd As SqlCommand
         Get
-            Return New SqlCommand(
-                        "SELECT * from v3pl_SO()", cn
-                    )
+            Dim ret = New SqlCommand(
+                "SELECT * from v3pl_SO()", cn
+            )
+            ret.CommandTimeout = 500
+            Return ret
         End Get
     End Property
 

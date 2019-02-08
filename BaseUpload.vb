@@ -36,17 +36,19 @@ Public MustInherit Class Upload : Inherits Dictionary(Of String, Integer) : Impl
         With sw
             For i As Integer = 0 To Count - 1
                 If map.Keys.Contains(i) Then
-                    sw.Write(String.Format("{0}{1}{0}", Chr(34), r(map(i))))
+                    If Not IsDBNull(r(map(i))) Then
+                        sw.Write(String.Format("{0}{1}{0}", Chr(34), Replace(r(map(i)), Chr(34), "''")))
+                    End If
                 End If
+
                 sw.Write(",")
+
             Next
             sw.Write(sw.NewLine)
 
         End With
 
     End Sub
-
-
 
 #Region "IDisposable Support"
     Private disposedValue As Boolean ' To detect redundant calls

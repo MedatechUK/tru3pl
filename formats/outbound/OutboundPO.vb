@@ -10,9 +10,11 @@ Public Class OutboundPO : Inherits Upload
 
     Public Overrides ReadOnly Property cmd As SqlCommand
         Get
-            Return New SqlCommand(
+            Dim ret = New SqlCommand(
                         "SELECT * from v3pl_PO()", cn
                     )
+            ret.CommandTimeout = 500
+            Return ret
         End Get
     End Property
 

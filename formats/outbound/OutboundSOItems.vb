@@ -3,8 +3,11 @@
 Public Class OutboundSOItems : Inherits Upload
 
     Private _ord As Integer
-    Sub New(ORD As Integer)
+    Private _duedate As Integer
+
+    Sub New(ORD As Integer, duedate As Integer)
         _ord = ORD
+        _duedate = duedate
         With Me
             .Add("Record_Type", 0)
             .Add("Merge_Action", 1)
@@ -91,9 +94,11 @@ Public Class OutboundSOItems : Inherits Upload
 
     Public Overrides ReadOnly Property cmd As SqlCommand
         Get
-            Return New SqlCommand(
-                        String.Format("SELECT * from v3pl_soi({0})", _ord), cn2
-                    )
+            Dim ret = New SqlCommand(
+                String.Format("SELECT * from v3pl_soi({0}, {1})", _ord, _duedate), cn2
+            )
+            ret.CommandTimeout = 500
+            Return ret
         End Get
     End Property
 

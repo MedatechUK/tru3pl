@@ -3,15 +3,18 @@
 Public Class OutboundSKU : Inherits Upload
     Public Overrides ReadOnly Property FileName As String
         Get
-            Return "OutSKU"
+            Return "SKU"
         End Get
     End Property
 
     Public Overrides ReadOnly Property cmd As SqlCommand
         Get
-            Return New SqlCommand(
+            Dim ret = New SqlCommand(
                         "SELECT * from v3pl_SKU()", cn
                     )
+            ret.CommandTimeout = 500
+            Return ret
+
         End Get
     End Property
 

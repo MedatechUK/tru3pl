@@ -1,4 +1,4 @@
-﻿USE [wlnd]
+﻿USE [tru]
 GO
 /****** Object:  UserDefinedFunction [dbo].[v3pl_PO]    Script Date: 24/01/2019 11:50:41 ******/
 SET ANSI_NULLS ON

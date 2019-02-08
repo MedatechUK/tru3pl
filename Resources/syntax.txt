@@ -1,7 +1,7 @@
 
 tru3pl.exe
 	-[action_type] {-[action_type]}
-	-out [folder]
+	-dir [folder]
 
 -[action_type] sku, po or so
 

@@ -18,6 +18,19 @@ Public Class OutboundSKU : Inherits Upload
         End Get
     End Property
 
+    Public Overrides ReadOnly Property update(ParamArray keys() As Integer) As SqlCommand
+        Get
+            Dim ret = New SqlCommand(
+                String.Format(
+                    "UPDATE PART SET ZTRX_3PLSENT = 'Y' WHERE PART= {0}",
+                    keys(0)
+                ), cn3
+            )
+            ret.CommandTimeout = 500
+            Return ret
+        End Get
+    End Property
+
     Sub New()
         With Me
             .Add("Record_Type", 0)

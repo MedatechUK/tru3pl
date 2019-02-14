@@ -76,6 +76,8 @@
   <ItemGroup>
     <Compile Include="BaseUpload.vb" />
     <Compile Include="clArg.vb" />
+    <Compile Include="formats\inbound\importCol.vb" />
+    <Compile Include="formats\inbound\Import.vb" />
     <Compile Include="formats\outbound\OutboundSOItems.vb" />
     <Compile Include="formats\outbound\OutboundSO.vb" />
     <Compile Include="Module1.vb" />
@@ -126,6 +128,7 @@
   <ItemGroup>
     <Content Include="functions.sql" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <Import Project="packages\WinSCP.5.13.7\build\WinSCP.targets" Condition="Exists('packages\WinSCP.5.13.7\build\WinSCP.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

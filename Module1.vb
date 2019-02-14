@@ -8,6 +8,8 @@ Module Module1
 
     Public cn As New SqlConnection(cnstr)
     Public cn2 As New SqlConnection(cnstr)
+    Public cn3 As New SqlConnection(cnstr)
+
     Public args As clArg
     Public transferOptions As TransferOptions
     Public sessionOptions As SessionOptions
@@ -71,22 +73,33 @@ Module Module1
             End With
         End If
 
-        cn.Open()
-        cn2.Open()
+        Try
+            cn.Open()
+            cn2.Open()
+            cn3.Open()
+
+        Catch ex As Exception
+            Console.WriteLine(ex.Message)
+            End
+
+        End Try
 
         If args.Keys.Contains("sku") Then
+
             Using sku As New OutboundSKU()
-                Using sw As New StreamWriter(Path.Combine(outdir.FullName, sku.FileStr))
-                    Using r As SqlDataReader = sku.cmd.ExecuteReader()
+                Using r As SqlDataReader = sku.cmd.ExecuteReader()
+                    If r.HasRows Then
+                        Using sw As New StreamWriter(Path.Combine(outdir.FullName, sku.FileStr))
+                            Dim m As Dictionary(Of Integer, Integer) = sku.CreateMap(r)
+                            While r.Read
+                                sku.write(sw, m, r)
+                                sku.update(r(0)).ExecuteNonQuery()
 
-                        Dim m As Dictionary(Of Integer, Integer) = sku.CreateMap(r)
+                            End While
 
-                        While r.Read
-                            sku.write(sw, m, r)
+                        End Using
 
-                        End While
-
-                    End Using
+                    End If
 
                 End Using
 
@@ -98,32 +111,35 @@ Module Module1
 
             Using PO As New OutboundPO()
                 Dim sl As Dictionary(Of Integer, Integer) = Nothing
-                Using sw As New StreamWriter(Path.Combine(outdir.FullName, PO.FileStr))
-                    Using r As SqlDataReader = PO.cmd.ExecuteReader()
+                Using r As SqlDataReader = PO.cmd.ExecuteReader()
+                    If r.HasRows Then
+                        Using sw As New StreamWriter(Path.Combine(outdir.FullName, PO.FileStr))
+                            Dim m As Dictionary(Of Integer, Integer) = PO.CreateMap(r)
 
-                        Dim m As Dictionary(Of Integer, Integer) = PO.CreateMap(r)
+                            While r.Read
+                                PO.write(sw, m, r)
 
-                        While r.Read
-                            PO.write(sw, m, r)
+                                Using POi As New OutboundPOItems(r(0))
+                                    Using q As SqlDataReader = POi.cmd.ExecuteReader()
+                                        If sl Is Nothing Then
+                                            sl = POi.CreateMap(q)
+                                        End If
 
-                            Using POi As New OutboundPOItems(r(0))
-                                Using q As SqlDataReader = POi.cmd.ExecuteReader()
-                                    If sl Is Nothing Then
-                                        sl = POi.CreateMap(q)
-                                    End If
+                                        While q.Read
+                                            POi.write(sw, sl, q)
+                                            POi.update(q(0)).ExecuteNonQuery()
 
-                                    While q.Read
-                                        POi.write(sw, sl, q)
+                                        End While
 
-                                    End While
+                                    End Using
 
                                 End Using
 
-                            End Using
+                            End While
 
-                        End While
+                        End Using
 
-                    End Using
+                    End If
 
                 End Using
 
@@ -135,33 +151,35 @@ Module Module1
 
             Using SO As New OutboundSO()
                 Dim sl As Dictionary(Of Integer, Integer) = Nothing
+                Using r As SqlDataReader = SO.cmd.ExecuteReader()
+                    If r.HasRows Then
+                        Using sw As New StreamWriter(Path.Combine(outdir.FullName, SO.FileStr))
+                            Dim m As Dictionary(Of Integer, Integer) = SO.CreateMap(r)
 
-                Using sw As New StreamWriter(Path.Combine(outdir.FullName, SO.FileStr))
-                    Using r As SqlDataReader = SO.cmd.ExecuteReader()
+                            While r.Read
+                                SO.write(sw, m, r)
 
-                        Dim m As Dictionary(Of Integer, Integer) = SO.CreateMap(r)
+                                Using SOi As New OutboundSOItems(r(0), r(1))
+                                    Using q As SqlDataReader = SOi.cmd.ExecuteReader()
+                                        If sl Is Nothing Then
+                                            sl = SOi.CreateMap(q)
+                                        End If
 
-                        While r.Read
-                            SO.write(sw, m, r)
+                                        While q.Read
+                                            SOi.write(sw, sl, q)
+                                            SOi.update(q(0)).ExecuteNonQuery()
 
-                            Using SOi As New OutboundSOItems(r(0), r(1))
-                                Using q As SqlDataReader = SOi.cmd.ExecuteReader()
-                                    If sl Is Nothing Then
-                                        sl = SOi.CreateMap(q)
-                                    End If
+                                        End While
 
-                                    While q.Read
-                                        SOi.write(sw, sl, q)
-
-                                    End While
+                                    End Using
 
                                 End Using
 
-                            End Using
+                            End While
 
-                        End While
+                        End Using
 
-                    End Using
+                    End If
 
                 End Using
 
@@ -169,77 +187,134 @@ Module Module1
 
         End If
 
-        Dim transferResult As TransferOperationResult
-        Using session As New Session
+        If args.Keys.Contains("ftp") Then
 
-            ' Connect
-            session.Open(sessionOptions)
+            Dim transferResult As TransferOperationResult
+            Using session As New Session
 
-            ' Send outbound files
-            Try
-                transferResult = session.PutFiles(
-                    String.Format("{0}\*.txt", outdir.FullName),
-                    "/test/in/",
-                    False,
-                    transferOptions
-                )
+                ' Connect
+                session.Open(sessionOptions)
 
-                ' Throw on any error
-                transferResult.Check()
-
-                ' Move to save folder
-                For Each transfer In transferResult.Transfers
-                    File.Move(
-                        transfer.FileName,
-                        Path.Combine(
-                            outsave.FullName,
-                            New FileInfo(transfer.FileName).Name
-                        )
+                ' Send outbound files
+                Try
+                    transferResult = session.PutFiles(
+                        String.Format("{0}\*.txt", outdir.FullName),
+                        "/test/in/",
+                        False,
+                        transferOptions
                     )
+
+                    ' Throw on any error
+                    transferResult.Check()
+
+                    ' Move to save folder
+                    For Each transfer In transferResult.Transfers
+                        File.Move(
+                            transfer.FileName,
+                            Path.Combine(
+                                outsave.FullName,
+                                New FileInfo(transfer.FileName).Name
+                            )
+                        )
+
+                    Next
+
+                Catch ex As Exception
+                    Console.Write(ex.Message)
+
+                End Try
+
+                ' Get inbound files
+                For Each orph As FileInfo In indir.GetFiles("*.csv")
+                    Try
+                        Dim moveto As New FileInfo(
+                            Path.Combine(
+                                insave.FullName,
+                                orph.Name
+                            )
+                        )
+                        If moveto.Exists Then
+                            orph.Delete()
+
+                        Else
+                            Dim imp As New Import
+                            imp.import(orph)
+
+                            ' Move to save folder
+                            File.Move(
+                                orph.FullName,
+                                moveto.FullName
+                            )
+
+                        End If
+
+                    Catch ex As Exception
+                        Console.Write(ex.Message)
+
+                    End Try
 
                 Next
 
-            Catch ex As Exception
-                Console.Write(ex.Message)
-
-            End Try
-
-            ' Get inbound files
-            Try
-                transferResult = session.GetFiles(
-                    "/test/out/*.csv",
-                    String.Format(
-                        "{0}\",
-                        indir.FullName
-                    ),
-                    False,
-                    transferOptions
-               )
-
-                ' Throw on any error
-                transferResult.Check()
-
-                ' Move to save folder
-                For Each transfer In transferResult.Transfers
-                    File.Move(
-                        Path.Combine(
-                            indir.FullName,
-                            Split(transfer.FileName, "/").Last
+                Try
+                    transferResult = session.GetFiles(
+                        "/test/out/*.csv",
+                        String.Format(
+                            "{0}\",
+                            indir.FullName
                         ),
-                        Path.Combine(
-                            insave.FullName,
-                            Split(transfer.FileName, "/").Last
-                        )
-                    )
+                        False,
+                        transferOptions
+                   )
 
-                Next
+                    ' Throw on any error
+                    transferResult.Check()
 
-            Catch ex As Exception
-                Console.Write(ex.Message)
+                    For Each transfer In transferResult.Transfers
 
-            End Try
+                        Try
+                            Dim FN As New FileInfo(
+                                Path.Combine(
+                                    indir.FullName,
+                                    Split(transfer.FileName, "/").Last
+                                )
+                            )
+                            Dim moveto As New FileInfo(
+                                Path.Combine(
+                                    insave.FullName,
+                                    Split(transfer.FileName, "/").Last
+                                )
+                            )
 
-        End Using
+                            If moveto.Exists Then
+                                FN.Delete()
+
+                            Else
+                                Dim imp As New Import
+                                imp.import(FN)
+
+                                ' Move to save folder
+                                File.Move(
+                                    FN.FullName,
+                                    moveto.FullName
+                                )
+
+                            End If
+
+                        Catch ex As Exception
+                            Console.Write(ex.Message)
+
+                        End Try
+
+                    Next
+
+                Catch ex As Exception
+                    Console.Write(ex.Message)
+
+                End Try
+
+            End Using
+
+        End If
 
     End Sub
 

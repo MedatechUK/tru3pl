@@ -10,6 +10,12 @@ Public MustInherit Class Upload : Inherits Dictionary(Of String, Integer) : Impl
         End Get
     End Property
 
+    Overridable ReadOnly Property update(ParamArray keys() As Integer) As SqlCommand
+        Get
+            Return Nothing
+        End Get
+    End Property
+
     Public ReadOnly Property FileStr As String
         Get
             Return String.Format("{0}{1}.txt", FileName, DateDiff(DateInterval.Minute, #1/1/1988#, Now))

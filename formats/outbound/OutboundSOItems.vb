@@ -102,4 +102,19 @@ Public Class OutboundSOItems : Inherits Upload
         End Get
     End Property
 
+    Public Overrides ReadOnly Property update(ParamArray keys() As Integer) As SqlCommand
+        Get
+            Dim ret = New SqlCommand(
+                String.Format(
+                    "UPDATE ORDERITEMS SET ZTRX_3PLSENT = 'Y' WHERE ORD= {0} AND ORDI= {1}",
+                    _ord,
+                    keys(0)
+                ), cn3
+            )
+            ret.CommandTimeout = 500
+            Return ret
+        End Get
+
+    End Property
+
 End Class

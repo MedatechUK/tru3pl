@@ -18,6 +18,17 @@ Public Class OutboundSKU : Inherits Upload
         End Get
     End Property
 
+    Public Overrides ReadOnly Property rowcount As SqlCommand
+        Get
+            Dim ret = New SqlCommand(
+                        "SELECT count(*) from v3pl_SKU()", cn2
+                    )
+            ret.CommandTimeout = 500
+            Return ret
+
+        End Get
+    End Property
+
     Public Overrides ReadOnly Property update(ParamArray keys() As Integer) As SqlCommand
         Get
             Dim ret = New SqlCommand(
@@ -32,6 +43,7 @@ Public Class OutboundSKU : Inherits Upload
     End Property
 
     Sub New()
+        Console.Write("Getting SKU data...")
         With Me
             .Add("Record_Type", 0)
             .Add("Merge_Action", 1)

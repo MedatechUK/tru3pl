@@ -75,7 +75,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseUpload.vb" />
-    <Compile Include="clArg.vb" />
+    <Compile Include="console\clArg.vb" />
+    <Compile Include="console\cursorloc.vb" />
     <Compile Include="formats\inbound\importCol.vb" />
     <Compile Include="formats\inbound\Import.vb" />
     <Compile Include="formats\outbound\OutboundSOItems.vb" />

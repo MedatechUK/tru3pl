@@ -1,9 +1,17 @@
 
 tru3pl.exe
-	-[action_type] {-[action_type]}
 	-dir [folder]
+	{-[action_type]} {-[action_type]...n}	
+	{-ftp {in|out}}
+	{-live}
+	{-w}
 
--[action_type] sku, po or so
+-[dir] output location
 
--[folder] output location
+-[action_type] Create 3pl files. File types are sku | po | so or ALL for all.
 
+-ftp {in|out} Sends / Receives files. Both if in/out not specfied.
+
+-live Send data to the LIVE system. Defaults to TEST.
+
+-w Wait for keypress after completion.

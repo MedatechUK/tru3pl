@@ -4,6 +4,7 @@ Imports System.Text
 
 Public Class Import
 
+    Private Cur As cursorloc
     Public Cols As New Dictionary(Of Integer, importCol)
 
     Sub New()
@@ -83,33 +84,32 @@ Public Class Import
             .Add(71, New importCol("SAMPLING_TYPE", "CHAR"))
             .Add(72, New importCol("COMPLETE_DSTAMP", "DATE"))
             .Add(73, New importCol("GRN", "INT"))
-            .Add(74, New importCol("DSTAMP2", "DATE"))
-            .Add(75, New importCol("GROUP_ID", "CHAR"))
-            .Add(76, New importCol("UPLOADED", "CHAR"))
-            .Add(77, New importCol("UPLOADED_VVIEW", "CHAR"))
-            .Add(78, New importCol("UPLOADED_AB", "CHAR"))
-            .Add(79, New importCol("SAP_IDOC_TYPE", "CHAR"))
-            .Add(80, New importCol("SAP_TID", "CHAR"))
-            .Add(81, New importCol("CE_ORIG_ROTATION_ID", "CHAR"))
-            .Add(82, New importCol("CE_ROTATION_ID", "CHAR"))
-            .Add(83, New importCol("CE_CONSIGNMENT_ID", "CHAR"))
-            .Add(84, New importCol("CE_RECEIPT_TYPE", "CHAR"))
-            .Add(85, New importCol("CE_ORIGINATOR", "CHAR"))
-            .Add(86, New importCol("CE_ORIGINATOR_REFERENCE", "CHAR"))
-            .Add(87, New importCol("CE_COO", "CHAR"))
-            .Add(88, New importCol("CE_CWC", "CHAR"))
-            .Add(89, New importCol("CE_UCR", "CHAR"))
-            .Add(90, New importCol("CE_UNDER_BOND", "CHAR"))
-            .Add(91, New importCol("CE_DOCUMENT_DSTAMP", "DATE"))
-            .Add(92, New importCol("UPLOADED_CUSTOMS", "CHAR"))
-            .Add(93, New importCol("UPLOADED_LABOR", "CHAR"))
-            .Add(94, New importCol("ASN_ID", "CHAR"))
-            .Add(95, New importCol("CUSTOMER_ID", "CHAR"))
-            .Add(96, New importCol("PRINT_LABEL_ID", "INT"))
-            .Add(97, New importCol("LOCK_CODE", "CHAR"))
-            .Add(98, New importCol("SHIP_DOCK", "CHAR"))
-            .Add(99, New importCol("CE_DUTY_STAMP", "CHAR"))
-            .Add(100, New importCol("PALLET_GROUPED", "CHAR"))
+            .Add(74, New importCol("GROUP_ID", "CHAR"))
+            .Add(75, New importCol("UPLOADED", "CHAR"))
+            .Add(76, New importCol("UPLOADED_VVIEW", "CHAR"))
+            .Add(77, New importCol("UPLOADED_AB", "CHAR"))
+            .Add(78, New importCol("SAP_IDOC_TYPE", "CHAR"))
+            .Add(79, New importCol("SAP_TID", "CHAR"))
+            .Add(80, New importCol("CE_ORIG_ROTATION_ID", "CHAR"))
+            .Add(81, New importCol("CE_ROTATION_ID", "CHAR"))
+            .Add(82, New importCol("CE_CONSIGNMENT_ID", "CHAR"))
+            .Add(83, New importCol("CE_RECEIPT_TYPE", "CHAR"))
+            .Add(84, New importCol("CE_ORIGINATOR", "CHAR"))
+            .Add(85, New importCol("CE_ORIGINATOR_REFERENCE", "CHAR"))
+            .Add(86, New importCol("CE_COO", "CHAR"))
+            .Add(87, New importCol("CE_CWC", "CHAR"))
+            .Add(88, New importCol("CE_UCR", "CHAR"))
+            .Add(89, New importCol("CE_UNDER_BOND", "CHAR"))
+            .Add(90, New importCol("CE_DOCUMENT_DSTAMP", "DATE"))
+            .Add(91, New importCol("UPLOADED_CUSTOMS", "CHAR"))
+            .Add(92, New importCol("UPLOADED_LABOR", "CHAR"))
+            .Add(93, New importCol("ASN_ID", "CHAR"))
+            .Add(94, New importCol("CUSTOMER_ID", "CHAR"))
+            .Add(95, New importCol("PRINT_LABEL_ID", "INT"))
+            .Add(96, New importCol("LOCK_CODE", "CHAR"))
+            .Add(97, New importCol("SHIP_DOCK", "CHAR"))
+            .Add(98, New importCol("CE_DUTY_STAMP", "CHAR"))
+            .Add(99, New importCol("PALLET_GROUPED", "CHAR"))
 
         End With
 
@@ -119,10 +119,17 @@ Public Class Import
 
         Dim ln As Integer = 0
 
+        Console.Write(String.Format("Importing file {0} ... ", infn.Name))
         Using sr As New StreamReader(infn.FullName)
+            Cur = New cursorloc(sr.BaseStream.Length)
+
             While Not sr.EndOfStream
-                Dim str() As String = sr.ReadLine().Split(",")
+
                 ln += 1
+
+                Dim s As String = sr.ReadLine()
+                Cur.current += (s.Length + 2)
+                Dim str() As String = s.Split(",")
 
                 Dim val As New Dictionary(Of String, String)
                 For i As Integer = 0 To UBound(str)
@@ -179,7 +186,6 @@ Public Class Import
                     Console.Write(ex.Message)
 
                 End Try
-
 
             End While
 

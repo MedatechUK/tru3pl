@@ -17,14 +17,14 @@
                     Progress = CInt(current / _max * 100)
                     Console.CursorLeft = x
                     Console.CursorTop = y
-                    Console.Write(String.Format("{0}%", Progress.ToString))
+                    args.Colourise(ConsoleColor.Yellow, "{0}%", Progress.ToString)
 
                 End If
                 If current >= _max Then
                     Console.CursorLeft = x
                     Console.CursorTop = y
-                    Console.WriteLine("Done.")
-                    Console.CursorVisible = False
+                    args.Colourise(ConsoleColor.Green, "Done.")
+                    Console.CursorVisible = True
 
                 End If
             End If

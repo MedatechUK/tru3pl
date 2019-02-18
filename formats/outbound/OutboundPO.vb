@@ -29,7 +29,7 @@ Public Class OutboundPO : Inherits Upload
     End Property
 
     Sub New()
-        Console.Write("Getting PO data...")
+        args.line("Getting PO data")
         With Me
             .Add("Record_Type", 0)
             .Add("Merge_Action", 1)

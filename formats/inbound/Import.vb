@@ -119,7 +119,8 @@ Public Class Import
 
         Dim ln As Integer = 0
 
-        Console.Write(String.Format("Importing file {0} ... ", infn.Name))
+        args.Log("Importing {0}", infn.Name)
+        args.line("Importing {0}", infn.Name)
         Using sr As New StreamReader(infn.FullName)
             Cur = New cursorloc(sr.BaseStream.Length)
 
@@ -128,7 +129,6 @@ Public Class Import
                 ln += 1
 
                 Dim s As String = sr.ReadLine()
-                Cur.current += (s.Length + 2)
                 Dim str() As String = s.Split(",")
 
                 Dim val As New Dictionary(Of String, String)
@@ -183,9 +183,11 @@ Public Class Import
                     cmd.ExecuteNonQuery()
 
                 Catch ex As Exception
-                    Console.Write(ex.Message)
+                    Console.WriteLine(ex.Message)
 
                 End Try
+
+                Cur.current += (s.Length + 2)
 
             End While
 

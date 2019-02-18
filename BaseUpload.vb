@@ -49,9 +49,9 @@ Public MustInherit Class Upload : Inherits Dictionary(Of String, Integer) : Impl
 #Region "Methods"
 
     Public Sub ProgressBar()
-
         showProgress = True
-        Console.Write(String.Format("Writing to file [{0}] ... ", FileStr))
+        args.Log("Writing file {0}", FileStr)
+        args.line("Writing file {0}", FileStr)
         Cur = New cursorloc(rowcount.ExecuteScalar())
 
     End Sub

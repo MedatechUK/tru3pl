@@ -43,7 +43,8 @@ Public Class OutboundSKU : Inherits Upload
     End Property
 
     Sub New()
-        Console.Write("Getting SKU data...")
+        args.line("Getting SKU data")
+
         With Me
             .Add("Record_Type", 0)
             .Add("Merge_Action", 1)

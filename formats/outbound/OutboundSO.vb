@@ -30,7 +30,8 @@ Public Class OutboundSO : Inherits Upload
     End Property
 
     Sub New()
-        Console.Write("Getting SO data...")
+        args.line("Getting SO data")
+
         With Me
             .Add("Record_Type", 0)
             .Add("Merge_Action", 1)

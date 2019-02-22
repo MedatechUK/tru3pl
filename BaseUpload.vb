@@ -39,7 +39,14 @@ Public MustInherit Class Upload : Inherits Dictionary(Of String, Integer) : Impl
 
     Public ReadOnly Property FileStr As String
         Get
-            Dim ret As String = String.Format("{0}{1}.txt", FileName, CreateDate)
+            Dim ret As String
+            Select Case args.Keys.Contains("csv")
+                Case True
+                    ret = String.Format("{0}{1}.csv", FileName, CreateDate)
+                Case Else
+                    ret = String.Format("{0}{1}.txt", FileName, CreateDate)
+            End Select
+
             Return ret
         End Get
     End Property
@@ -75,7 +82,13 @@ Public MustInherit Class Upload : Inherits Dictionary(Of String, Integer) : Impl
             For i As Integer = 0 To Count - 1
                 If map.Keys.Contains(i) Then
                     If Not IsDBNull(r(map(i))) Then
-                        sw.Write(String.Format("{0}{1}{0}", Chr(34), Replace(r(map(i)), Chr(34), "''")))
+                        sw.Write(
+                            String.Format(
+                                "{0}{1}{0}",
+                                Chr(34),
+                                checkstring(r(map(i)))
+                            )
+                        )
                     End If
                 End If
 
@@ -89,6 +102,15 @@ Public MustInherit Class Upload : Inherits Dictionary(Of String, Integer) : Impl
         If showProgress Then Cur.current += 1
 
     End Sub
+
+    Private Function checkstring(str As String) As String
+        Dim ret As String = str
+        ret = Replace(ret, Chr(34), "''")
+        ret = Replace(ret, ",", " ")
+
+        Return ret
+
+    End Function
 
 #End Region
 

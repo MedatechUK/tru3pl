@@ -26,7 +26,7 @@ Module Module1
                 Select Case k.ToLower
                     Case "?", "help"
                         args.syntax()
-                        End
+                        args.wait()
 
                     Case "dir"
                         basedir = New DirectoryInfo(args(k))
@@ -82,16 +82,30 @@ Module Module1
 #Region "Open database connections."
 
             Try
-                args.line("Opening database")
+                args.line("Opening {0} database", remoteFolder.ToUpper)
 
-                cn = New SqlConnection(My.Settings.cnstr)
-                cn.Open()
+                Select Case remoteFolder.ToLower
+                    Case "live"
+                        cn = New SqlConnection(My.Settings.cnstrLive)
+                        cn.Open()
 
-                cn2 = New SqlConnection(My.Settings.cnstr)
-                cn2.Open()
+                        cn2 = New SqlConnection(My.Settings.cnstrLive)
+                        cn2.Open()
 
-                cn3 = New SqlConnection(My.Settings.cnstr)
-                cn3.Open()
+                        cn3 = New SqlConnection(My.Settings.cnstrLive)
+                        cn3.Open()
+
+                    Case Else
+                        cn = New SqlConnection(My.Settings.cnstr)
+                        cn.Open()
+
+                        cn2 = New SqlConnection(My.Settings.cnstr)
+                        cn2.Open()
+
+                        cn3 = New SqlConnection(My.Settings.cnstr)
+                        cn3.Open()
+
+                End Select
 
                 args.Colourise(ConsoleColor.Green, "OK")
                 Console.WriteLine()
@@ -125,7 +139,7 @@ Module Module1
                                 Dim m As Dictionary(Of Integer, Integer) = sku.CreateMap(r)
                                 While r.Read
                                     sku.write(sw, m, r)
-                                    sku.update(r(0)).ExecuteNonQuery()
+                                    If Not args.Keys.Contains("csv") Then sku.update(r(0)).ExecuteNonQuery()
 
                                 End While
 
@@ -166,7 +180,7 @@ Module Module1
 
                                             While q.Read
                                                 POi.write(sw, sl, q)
-                                                POi.update(q(0)).ExecuteNonQuery()
+                                                If Not args.Keys.Contains("csv") Then POi.update(q(0)).ExecuteNonQuery()
 
                                             End While
 
@@ -213,7 +227,7 @@ Module Module1
 
                                             While q.Read
                                                 SOi.write(sw, sl, q)
-                                                SOi.update(q(0)).ExecuteNonQuery()
+                                                If Not args.Keys.Contains("csv") Then SOi.update(q(0)).ExecuteNonQuery()
 
                                             End While
 
@@ -236,6 +250,57 @@ Module Module1
 
             End If
 
+            If args.Keys.Contains("wt") Then
+                ftpOnly = False
+
+                If args("wt").Length = 0 Then
+                    Console.WriteLine("Missing -wt [#document].")
+                    args.wait()
+
+                End If
+
+                Using WT As New OutboundWT(args("wt"))
+                    Dim sl As Dictionary(Of Integer, Integer) = Nothing
+                    Using r As SqlDataReader = WT.cmd.ExecuteReader()
+                        If r.HasRows Then
+                            args.Colourise(ConsoleColor.Green, "OK")
+                            WT.ProgressBar()
+
+                            Using sw As New StreamWriter(Path.Combine(outdir.FullName, WT.FileStr))
+                                Dim m As Dictionary(Of Integer, Integer) = WT.CreateMap(r)
+
+                                While r.Read
+                                    WT.write(sw, m, r)
+
+                                    Using WTi As New OutboundWTItems(r(0))
+                                        Using q As SqlDataReader = WTi.cmd.ExecuteReader()
+                                            If sl Is Nothing Then
+                                                sl = WTi.CreateMap(q)
+                                            End If
+
+                                            While q.Read
+                                                WTi.write(sw, sl, q)
+
+                                            End While
+
+                                        End Using
+
+                                    End Using
+
+                                End While
+
+                            End Using
+
+                        Else
+                            args.Colourise(ConsoleColor.Red, "No Rows.")
+
+                        End If
+
+                    End Using
+
+                End Using
+
+            End If
 #End Region
 
 #Region "In"
@@ -411,7 +476,8 @@ Module Module1
                                         "{0}\",
                                         indir.FullName
                                     ),
-                                    String.Compare(remoteFolder, "LIVE", True) = 0,
+                                    String.Compare(remoteFolder, "LIVE", True) = 0 _
+                                    Or args.Keys.Contains("del"),
                                     transferOptions
                                )
 

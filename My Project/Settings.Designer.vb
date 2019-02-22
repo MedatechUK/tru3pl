@@ -98,6 +98,15 @@ Namespace My
                 Return CType(Me("SshHostKeyFingerprint"),String)
             End Get
         End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Integrated Security=true;Initial Catalog=tru;Server=priority64")>  _
+        Public ReadOnly Property cnstrLive() As String
+            Get
+                Return CType(Me("cnstrLive"),String)
+            End Get
+        End Property
     End Class
 End Namespace
 

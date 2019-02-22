@@ -88,6 +88,8 @@
     <Compile Include="console\cursorloc.vb" />
     <Compile Include="formats\inbound\importCol.vb" />
     <Compile Include="formats\inbound\Import.vb" />
+    <Compile Include="formats\outbound\OutboundWT.vb" />
+    <Compile Include="formats\outbound\OutboundWTItems.vb" />
     <Compile Include="formats\outbound\OutboundSOItems.vb" />
     <Compile Include="formats\outbound\OutboundSO.vb" />
     <Compile Include="Module1.vb" />
@@ -120,6 +122,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App - Copy.config" />
     <None Include="My Project\app.manifest" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>

@@ -17,5 +17,8 @@
     <Setting Name="SshHostKeyFingerprint" Type="System.String" Scope="Application">
       <Value Profile="(Default)">ssh-rsa 2048 53:a0:ba:88:57:32:c8:7b:33:ac:6d:4a:e5:35:23:e2</Value>
     </Setting>
+    <Setting Name="cnstrLive" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Integrated Security=true;Initial Catalog=tru;Server=priority64</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

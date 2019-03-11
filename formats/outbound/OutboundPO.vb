@@ -8,21 +8,45 @@ Public Class OutboundPO : Inherits Upload
         End Get
     End Property
 
-    Public Overrides ReadOnly Property cmd As SqlCommand
+    Public Overrides ReadOnly Property cmd(Optional par As String = "") As SqlCommand
         Get
-            Dim ret = New SqlCommand(
+            Dim ret As SqlCommand
+            Select Case Len(Trim(par))
+                Case 0
+                    ret = New SqlCommand(
                         "SELECT * from v3pl_PO()", cn
                     )
+                Case Else
+                    ret = New SqlCommand(
+                        String.Format(
+                            "SELECT * from v3pl_PO() where par = '{0}'",
+                            par
+                        ), cn
+                    )
+            End Select
+
             ret.CommandTimeout = 500
             Return ret
         End Get
     End Property
 
-    Public Overrides ReadOnly Property rowcount As SqlCommand
+    Public Overrides ReadOnly Property rowcount(Optional par As String = "") As SqlCommand
         Get
-            Dim ret = New SqlCommand(
+            Dim ret As SqlCommand
+            Select Case Len(Trim(par))
+                Case 0
+                    ret = New SqlCommand(
                         "SELECT count(*) from v3pl_PO()", cn2
                     )
+                Case Else
+                    ret = New SqlCommand(
+                        String.Format(
+                            "SELECT count(*) from v3pl_PO() where par = '{0}'",
+                            par
+                        ), cn2
+                    )
+            End Select
+
             ret.CommandTimeout = 500
             Return ret
         End Get

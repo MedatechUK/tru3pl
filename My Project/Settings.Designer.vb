@@ -56,7 +56,7 @@ Namespace My
         
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("Integrated Security=true;Initial Catalog=tru;Server=localhost\PRI")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Integrated Security=true;Initial Catalog=tru;Server=nadav-test\PRI")>  _
         Public ReadOnly Property cnstr() As String
             Get
                 Return CType(Me("cnstr"),String)

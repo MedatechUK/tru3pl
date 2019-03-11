@@ -15,13 +15,13 @@ Public MustInherit Class Upload : Inherits Dictionary(Of String, Integer) : Impl
 
     Overridable ReadOnly Property FileName As String
 
-    Overridable ReadOnly Property cmd As SqlCommand
+    Overridable ReadOnly Property cmd(Optional par As String = "") As SqlCommand
         Get
             Return Nothing
         End Get
     End Property
 
-    Overridable ReadOnly Property rowcount As SqlCommand
+    Overridable ReadOnly Property rowcount(Optional par As String = "") As SqlCommand
         Get
             Return Nothing
         End Get
@@ -55,11 +55,11 @@ Public MustInherit Class Upload : Inherits Dictionary(Of String, Integer) : Impl
 
 #Region "Methods"
 
-    Public Sub ProgressBar()
+    Public Sub ProgressBar(Optional par As String = "")
         showProgress = True
         args.Log("Writing file {0}", FileStr)
         args.line("Writing file {0}", FileStr)
-        Cur = New cursorloc(rowcount.ExecuteScalar())
+        Cur = New cursorloc(rowcount(par).ExecuteScalar())
 
     End Sub
 

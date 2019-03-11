@@ -38,6 +38,15 @@ Module Module1
 
             Next
 
+            If args.Keys.Contains("all") Then
+                With args.Keys
+                    If Not .Contains("so") Then args.Add("so", "")
+                    If Not .Contains("po") Then args.Add("po", "")
+                    If Not .Contains("sku") Then args.Add("sku", "")
+
+                End With
+            End If
+
 #End Region
 
 #Region "Check Directory structure"
@@ -126,7 +135,7 @@ Module Module1
 
             Dim ftpOnly As Boolean = True
 
-            If args.Keys.Contains("sku") Or args.Keys.Contains("all") Then
+            If args.Keys.Contains("sku") Then
                 ftpOnly = False
 
                 Using sku As New OutboundSKU()
@@ -156,15 +165,15 @@ Module Module1
 
             End If
 
-            If args.Keys.Contains("po") Or args.Keys.Contains("all") Then
+            If args.Keys.Contains("po") Then
                 ftpOnly = False
 
                 Using PO As New OutboundPO()
                     Dim sl As Dictionary(Of Integer, Integer) = Nothing
-                    Using r As SqlDataReader = PO.cmd.ExecuteReader()
+                    Using r As SqlDataReader = PO.cmd(args("po")).ExecuteReader()
                         If r.HasRows Then
                             args.Colourise(ConsoleColor.Green, "OK")
-                            PO.ProgressBar()
+                            PO.ProgressBar(args("po"))
 
                             Using sw As New StreamWriter(Path.Combine(outdir.FullName, PO.FileStr))
                                 Dim m As Dictionary(Of Integer, Integer) = PO.CreateMap(r)
@@ -203,15 +212,15 @@ Module Module1
 
             End If
 
-            If args.Keys.Contains("so") Or args.Keys.Contains("all") Then
+            If args.Keys.Contains("so") Then
                 ftpOnly = False
 
                 Using SO As New OutboundSO()
                     Dim sl As Dictionary(Of Integer, Integer) = Nothing
-                    Using r As SqlDataReader = SO.cmd.ExecuteReader()
+                    Using r As SqlDataReader = SO.cmd(args("so")).ExecuteReader()
                         If r.HasRows Then
                             args.Colourise(ConsoleColor.Green, "OK")
-                            SO.ProgressBar()
+                            SO.ProgressBar(args("so"))
 
                             Using sw As New StreamWriter(Path.Combine(outdir.FullName, SO.FileStr))
                                 Dim m As Dictionary(Of Integer, Integer) = SO.CreateMap(r)

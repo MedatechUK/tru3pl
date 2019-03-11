@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="cnstr" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Integrated Security=true;Initial Catalog=tru;Server=localhost\PRI</Value>
+      <Value Profile="(Default)">Integrated Security=true;Initial Catalog=tru;Server=nadav-test\PRI</Value>
     </Setting>
     <Setting Name="HostName" Type="System.String" Scope="Application">
       <Value Profile="(Default)">secureftp.torque.eu</Value>

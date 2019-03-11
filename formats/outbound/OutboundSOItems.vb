@@ -92,7 +92,7 @@ Public Class OutboundSOItems : Inherits Upload
         End With
     End Sub
 
-    Public Overrides ReadOnly Property cmd As SqlCommand
+    Public Overrides ReadOnly Property cmd(Optional par As String = "") As SqlCommand
         Get
             Dim ret = New SqlCommand(
                 String.Format("SELECT * from v3pl_soi({0}, {1})", _ord, _duedate), cn2

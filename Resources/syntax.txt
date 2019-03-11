@@ -10,6 +10,8 @@ tru3pl.exe
 -[action_type] Create 3pl files. 
  File types are sku | po | so | wt or ALL for all.
  -wt #TXDOC creates a po file for the docment.
+ -so #SONUM creates a so file for a sales order.
+ -po #PONUM creates a po file for the purchase order.
 
 -ftp {in|out} Sends / Receives files. 
  Both if in/out not specfied.

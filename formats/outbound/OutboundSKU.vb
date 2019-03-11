@@ -7,7 +7,7 @@ Public Class OutboundSKU : Inherits Upload
         End Get
     End Property
 
-    Public Overrides ReadOnly Property cmd As SqlCommand
+    Public Overrides ReadOnly Property cmd(Optional par As String = "") As SqlCommand
         Get
             Dim ret = New SqlCommand(
                         "SELECT * from v3pl_SKU()", cn
@@ -18,7 +18,7 @@ Public Class OutboundSKU : Inherits Upload
         End Get
     End Property
 
-    Public Overrides ReadOnly Property rowcount As SqlCommand
+    Public Overrides ReadOnly Property rowcount(Optional par As String = "") As SqlCommand
         Get
             Dim ret = New SqlCommand(
                         "SELECT count(*) from v3pl_SKU()", cn2

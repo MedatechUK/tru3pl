@@ -8,7 +8,7 @@ Public Class OutboundWT : Inherits Upload
         End Get
     End Property
 
-    Public Overrides ReadOnly Property cmd As SqlCommand
+    Public Overrides ReadOnly Property cmd(Optional par As String = "") As SqlCommand
         Get
             Dim ret = New SqlCommand(
                 String.Format(
@@ -21,7 +21,7 @@ Public Class OutboundWT : Inherits Upload
         End Get
     End Property
 
-    Public Overrides ReadOnly Property rowcount As SqlCommand
+    Public Overrides ReadOnly Property rowcount(Optional par As String = "") As SqlCommand
         Get
             Dim ret = New SqlCommand(
                 String.Format(

@@ -1,51 +1,51 @@
 ﻿USE [tru]
 GO
-/****** Object:  UserDefinedFunction [dbo].[v3pl_wti]    Script Date: 08/03/2019 11:25:27 ******/
+/****** Object:  UserDefinedFunction [dbo].[v3pl_wti]    Script Date: 16/03/2019 14:53:50 ******/
 DROP FUNCTION [dbo].[v3pl_wti]
 GO
-/****** Object:  UserDefinedFunction [dbo].[v3pl_WT]    Script Date: 08/03/2019 11:25:27 ******/
+/****** Object:  UserDefinedFunction [dbo].[v3pl_WT]    Script Date: 16/03/2019 14:53:50 ******/
 DROP FUNCTION [dbo].[v3pl_WT]
 GO
-/****** Object:  UserDefinedFunction [dbo].[v3pl_soi]    Script Date: 08/03/2019 11:25:27 ******/
+/****** Object:  UserDefinedFunction [dbo].[v3pl_soi]    Script Date: 16/03/2019 14:53:50 ******/
 DROP FUNCTION [dbo].[v3pl_soi]
 GO
-/****** Object:  UserDefinedFunction [dbo].[v3pl_poi]    Script Date: 08/03/2019 11:25:27 ******/
+/****** Object:  UserDefinedFunction [dbo].[v3pl_poi]    Script Date: 16/03/2019 14:53:50 ******/
 DROP FUNCTION [dbo].[v3pl_poi]
 GO
-/****** Object:  UserDefinedFunction [dbo].[v3pl_SO]    Script Date: 08/03/2019 11:25:27 ******/
+/****** Object:  UserDefinedFunction [dbo].[v3pl_SO]    Script Date: 16/03/2019 14:53:50 ******/
 DROP FUNCTION [dbo].[v3pl_SO]
 GO
-/****** Object:  View [dbo].[v_3pl_SorderItems]    Script Date: 08/03/2019 11:25:27 ******/
+/****** Object:  View [dbo].[v_3pl_SorderItems]    Script Date: 16/03/2019 14:53:50 ******/
 DROP VIEW [dbo].[v_3pl_SorderItems]
 GO
-/****** Object:  View [dbo].[v3pl_ServiceType]    Script Date: 08/03/2019 11:25:27 ******/
+/****** Object:  View [dbo].[v3pl_ServiceType]    Script Date: 16/03/2019 14:53:50 ******/
 DROP VIEW [dbo].[v3pl_ServiceType]
 GO
-/****** Object:  View [dbo].[v3pl_CarrigePart]    Script Date: 08/03/2019 11:25:27 ******/
+/****** Object:  View [dbo].[v3pl_CarrigePart]    Script Date: 16/03/2019 14:53:50 ******/
 DROP VIEW [dbo].[v3pl_CarrigePart]
 GO
-/****** Object:  UserDefinedFunction [dbo].[v3pl_SKU]    Script Date: 08/03/2019 11:25:27 ******/
+/****** Object:  UserDefinedFunction [dbo].[v3pl_SKU]    Script Date: 16/03/2019 14:53:50 ******/
 DROP FUNCTION [dbo].[v3pl_SKU]
 GO
-/****** Object:  UserDefinedFunction [dbo].[v3pl_PO]    Script Date: 08/03/2019 11:25:27 ******/
+/****** Object:  UserDefinedFunction [dbo].[v3pl_PO]    Script Date: 16/03/2019 14:53:50 ******/
 DROP FUNCTION [dbo].[v3pl_PO]
 GO
-/****** Object:  View [dbo].[v_3pl_PorderItems]    Script Date: 08/03/2019 11:25:27 ******/
+/****** Object:  View [dbo].[v_3pl_PorderItems]    Script Date: 16/03/2019 14:53:50 ******/
 DROP VIEW [dbo].[v_3pl_PorderItems]
 GO
-/****** Object:  View [dbo].[v3pl_3plSKU]    Script Date: 08/03/2019 11:25:27 ******/
+/****** Object:  View [dbo].[v3pl_3plSKU]    Script Date: 16/03/2019 14:53:50 ******/
 DROP VIEW [dbo].[v3pl_3plSKU]
 GO
-/****** Object:  UserDefinedFunction [dbo].[v3pl_OrdType]    Script Date: 08/03/2019 11:25:27 ******/
+/****** Object:  UserDefinedFunction [dbo].[v3pl_OrdType]    Script Date: 16/03/2019 14:53:50 ******/
 DROP FUNCTION [dbo].[v3pl_OrdType]
 GO
-/****** Object:  UserDefinedFunction [dbo].[v3pl_CustCheck]    Script Date: 08/03/2019 11:25:27 ******/
+/****** Object:  UserDefinedFunction [dbo].[v3pl_CustCheck]    Script Date: 16/03/2019 14:53:50 ******/
 DROP FUNCTION [dbo].[v3pl_CustCheck]
 GO
-/****** Object:  UserDefinedFunction [dbo].[v3pl_CPROFTYPE]    Script Date: 08/03/2019 11:25:27 ******/
+/****** Object:  UserDefinedFunction [dbo].[v3pl_CPROFTYPE]    Script Date: 16/03/2019 14:53:50 ******/
 DROP FUNCTION [dbo].[v3pl_CPROFTYPE]
 GO
-/****** Object:  UserDefinedFunction [dbo].[v3pl_CPROFTYPE]    Script Date: 08/03/2019 11:25:27 ******/
+/****** Object:  UserDefinedFunction [dbo].[v3pl_CPROFTYPE]    Script Date: 16/03/2019 14:53:50 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -69,7 +69,7 @@ BEGIN
 END
 
 GO
-/****** Object:  UserDefinedFunction [dbo].[v3pl_CustCheck]    Script Date: 08/03/2019 11:25:27 ******/
+/****** Object:  UserDefinedFunction [dbo].[v3pl_CustCheck]    Script Date: 16/03/2019 14:53:50 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -92,7 +92,7 @@ BEGIN
 END
 
 GO
-/****** Object:  UserDefinedFunction [dbo].[v3pl_OrdType]    Script Date: 08/03/2019 11:25:27 ******/
+/****** Object:  UserDefinedFunction [dbo].[v3pl_OrdType]    Script Date: 16/03/2019 14:53:50 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -172,7 +172,7 @@ END
 	--where
 	--	CUSTOMERS.CUST = 302433
 GO
-/****** Object:  View [dbo].[v3pl_3plSKU]    Script Date: 08/03/2019 11:25:27 ******/
+/****** Object:  View [dbo].[v3pl_3plSKU]    Script Date: 16/03/2019 14:53:50 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -189,7 +189,7 @@ WHERE        (0 = 0) AND (dbo.PART.PART > 0) AND (dbo.PARTSTATS.SELLFLAG = 'Y') 
                                WHERE        (SEND = 'Y'))) AND (dbo.PARTSTATS.INACTIVEFLAG <> 'Y')
 
 GO
-/****** Object:  View [dbo].[v_3pl_PorderItems]    Script Date: 08/03/2019 11:25:27 ******/
+/****** Object:  View [dbo].[v_3pl_PorderItems]    Script Date: 16/03/2019 14:53:50 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -214,7 +214,7 @@ WHERE        (0 = 0) AND (dbo.PORDISTATUSES.PORDISTATUSDES IN ('In Transit')) AN
                                FROM            dbo.v3pl_3plSKU AS v3pl_SKU_1)) AND (dbo.PORDERITEMS.ZTRX_3PLSENT <> 'Y')
 
 GO
-/****** Object:  UserDefinedFunction [dbo].[v3pl_PO]    Script Date: 08/03/2019 11:25:27 ******/
+/****** Object:  UserDefinedFunction [dbo].[v3pl_PO]    Script Date: 16/03/2019 14:53:50 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -233,7 +233,8 @@ RETURN
 	SELECT   DISTINCT 
 		IMPFILE AS "IMO", 
 		IMPFNUM AS "Pre_Advice_Id", 	
-			
+		ORDNAME as "par",
+
 		LTRIM(RTRIM(STR(DATEPART(yyyy, dbo.MINTODATE(min(DUEDATE)))))) +
 		right('00' + LTRIM(RTRIM(STR(DATEPART(MM, dbo.MINTODATE(min(DUEDATE)))))),2) +
 		right('00' + LTRIM(RTRIM(STR(DATEPART(dd, dbo.MINTODATE(min(DUEDATE)))))),2) +
@@ -264,13 +265,13 @@ RETURN
 		EMG_ADDRESSB, 
 		EMG_ADDRESSC, 
 		COUNTRYCODE, 
-        SUPNAME
-
+        SUPNAME,
+		ORDNAME
 )
 
 
 GO
-/****** Object:  UserDefinedFunction [dbo].[v3pl_SKU]    Script Date: 08/03/2019 11:25:27 ******/
+/****** Object:  UserDefinedFunction [dbo].[v3pl_SKU]    Script Date: 16/03/2019 14:53:50 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -356,7 +357,9 @@ RETURN
 		dbo.PARTSPEC.SPEC4               AS 'User_Def_Type_3', 
 		dbo.PARTSPEC.SPEC10              AS 'User_Def_Type_4', 
 		dbo.PARTSPEC.SPEC2               AS 'User_Def_Type_5', 
-		dbo.ZTRX_PARTWEBDATA.WEARTYPE    AS 'User_Def_Type_6' 
+		dbo.ZTRX_PARTWEBDATA.WEARTYPE    AS 'User_Def_Type_6',
+		ZTRX_PARTSPEC.SPEC31			as "UPC"
+		 
 		FROM   dbo.COUNTRIES 
 		RIGHT OUTER JOIN dbo.SUPPLIERS 
 		ON dbo.COUNTRIES.COUNTRY = dbo.SUPPLIERS.COUNTRY 
@@ -374,6 +377,8 @@ RETURN
 		ON dbo.ZTRX_PARTWEBDATA.PART = dbo.PART.MPART 
 		LEFT OUTER JOIN dbo.PARTSPEC 
 		ON dbo.PART.PART = dbo.PARTSPEC.PART 
+		join ZTRX_PARTSPEC on dbo.PART.PART = dbo.ZTRX_PARTSPEC.PART
+		 
 		WHERE  ( 0 = 0 ) 
 		AND ( dbo.PART.PART IN (
 			SELECT PART FROM dbo.v3pl_3plSKU 
@@ -384,7 +389,7 @@ RETURN
 
 --SELECT * FROM [dbo].[v3pl_SKU]()
 GO
-/****** Object:  View [dbo].[v3pl_CarrigePart]    Script Date: 08/03/2019 11:25:27 ******/
+/****** Object:  View [dbo].[v3pl_CarrigePart]    Script Date: 16/03/2019 14:53:50 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -397,7 +402,7 @@ FROM            dbo.PART INNER JOIN
 WHERE        (dbo.PARTSPEC.SPEC14 = 'CARR')
 
 GO
-/****** Object:  View [dbo].[v3pl_ServiceType]    Script Date: 08/03/2019 11:25:27 ******/
+/****** Object:  View [dbo].[v3pl_ServiceType]    Script Date: 16/03/2019 14:53:50 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -418,7 +423,7 @@ FROM            ORDERS JOIN
 WHERE        0 = 0 AND (dbo.ORDERS.CLOSED = '') AND (CPROFTYPES.TYPECODE = 'RES') and (dbo.ORDERSA.ZTRX_RELSUBCON ='Y')
 
 GO
-/****** Object:  View [dbo].[v_3pl_SorderItems]    Script Date: 08/03/2019 11:25:27 ******/
+/****** Object:  View [dbo].[v_3pl_SorderItems]    Script Date: 16/03/2019 14:53:50 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -432,12 +437,12 @@ SELECT        TOP (100) PERCENT dbo.ORDERS.ORDNAME, dbo.ORDERS.CUST, dbo.CUSTOME
                          THEN DESTCODES.ADDRESS2 ELSE CUSTOMERS.EMG_ADDRESSB END AS Address2, CASE WHEN (dbo.SHIPTO.IV > 0) THEN SHIPTO.STATE WHEN (dbo.ORDERS.DESTCODE > 0) 
                          THEN DESTCODES.STATE ELSE CUSTOMERS.STATE END AS Town, CASE WHEN (dbo.SHIPTO.IV > 0) THEN SHIPTO.STATEID WHEN (dbo.ORDERS.DESTCODE > 0) 
                          THEN DESTCODES.STATEID ELSE CUSTOMERS.STATEID END AS STATEID, CASE WHEN (dbo.SHIPTO.IV > 0) THEN SHIPTO.ZIP WHEN (dbo.ORDERS.DESTCODE > 0) 
-                         THEN DESTCODES.ZIP ELSE CUSTOMERS.ZIP END AS Postcode, CASE WHEN (dbo.SHIPTO.IV > 0) THEN SHIPTO.COUNTRY WHEN (dbo.ORDERS.DESTCODE > 0) 
-                         THEN DESTCODES.COUNTRY ELSE CUSTOMERS.COUNTRY END AS COUNTRY, dbo.ORDERS.DETAILS AS User_Def_Type_2, dbo.ORDERS.ORDNAME AS User_Def_Type_1, dbo.ORDERS.REFERENCE, 
-                         dbo.SHIPTO.NAME AS Contact, dbo.PHONEBOOK.EMAIL AS Contact_Email, CASE WHEN (Len(dbo.PHONEBOOK.PHONENUM) = 0) 
+                         THEN DESTCODES.ZIP ELSE CUSTOMERS.ZIP END AS Postcode, dbo.IsZero(ISNULL(CASE WHEN (dbo.SHIPTO.IV > 0) THEN SHIPTO.COUNTRY WHEN (dbo.ORDERS.DESTCODE > 0) 
+                         THEN DESTCODES.COUNTRY ELSE CUSTOMERS.COUNTRY END, 180), 180) AS COUNTRY, dbo.ORDERS.DETAILS AS User_Def_Type_2, dbo.ORDERS.ORDNAME AS User_Def_Type_1, 
+                         dbo.ORDERS.REFERENCE, dbo.SHIPTO.NAME AS Contact, dbo.PHONEBOOK.EMAIL AS Contact_Email, CASE WHEN (Len(dbo.PHONEBOOK.PHONENUM) = 0) 
                          THEN CUSTOMERS.PHONE ELSE dbo.PHONEBOOK.PHONENUM END AS Contact_Phone, dbo.v3pl_OrdType(dbo.CUSTOMERS.CUST) AS Order_Type, dbo.v3pl_ServiceType.Service_Level, 
                          dbo.CURRENCIES.CODE AS Product_Currency, dbo.CUSTPART.CUSTPARTNAME AS Customer_Sku_Id, dbo.ORDERITEMS.QPRICE AS Product_Price, dbo.ORDERITEMS.ZTRX_RESERVED, 
-                         dbo.ZTRX_PARTSPEC.SPEC31 AS UPC
+                         dbo.ZTRX_PARTSPEC.SPEC31 AS UPC, dbo.ORDERITEMS.LINE AS OLINE
 FROM            dbo.SHIPTO RIGHT OUTER JOIN
                          dbo.PHONEBOOK INNER JOIN
                          dbo.ORDERITEMS INNER JOIN
@@ -453,16 +458,16 @@ FROM            dbo.SHIPTO RIGHT OUTER JOIN
                          dbo.ZTRX_PARTSPEC ON dbo.PARTSPEC.PART = dbo.ZTRX_PARTSPEC.PART ON dbo.SHIPTO.IV = dbo.ORDERS.ORD AND dbo.SHIPTO.TYPE = 'O' LEFT OUTER JOIN
                          dbo.DESTCODES ON dbo.ORDERS.DESTCODE = dbo.DESTCODES.DESTCODE LEFT OUTER JOIN
                          dbo.CUSTPART ON dbo.ORDERITEMS.PART = dbo.CUSTPART.PART AND dbo.CUSTOMERS.CUST = dbo.CUSTPART.CUST
-WHERE        (dbo.ORDERS.CLOSED = '') AND (dbo.ORDERS.ORD > 0) AND (dbo.ORDSTATUS.ORDSTATUSDES IN ('Confirmed')) AND (dbo.ORDERITEMS.QUANT > 0) AND (dbo.v3pl_CustCheck(dbo.ORDERS.CUST) = 1) AND 
-                         (dbo.CUSTSTATS.RESTRICTEDFLAG = '') AND (dbo.CUSTSTATS.INACTIVE = '') AND (dbo.CUSTSTATS.ZTRX_ONHOLDFLAG = '') AND (dbo.CUSTSTATS.STATDES IN ('Active')) AND (dbo.ORDERS.CUST > 0) AND 
-                         (DATEPART(yy, dbo.MINTODATE(dbo.ORDERS.CURDATE)) > 2018) AND (dbo.PART.PART IN
+WHERE        (dbo.ORDERS.CLOSED = '') AND (dbo.ORDERS.ORD > 0) AND (dbo.ORDSTATUS.ORDSTATUSDES IN ('Confirmed', 'Crd Devn')) AND (dbo.ORDERITEMS.QUANT > 0) AND (dbo.v3pl_CustCheck(dbo.ORDERS.CUST) 
+                         = 1) AND (dbo.CUSTSTATS.RESTRICTEDFLAG = '') AND (dbo.CUSTSTATS.INACTIVE = '') AND (dbo.CUSTSTATS.ZTRX_ONHOLDFLAG = '') AND (dbo.CUSTSTATS.STATDES IN ('Active')) AND (dbo.ORDERS.CUST > 0) 
+                         AND (DATEPART(yy, dbo.MINTODATE(dbo.ORDERS.CURDATE)) > 2018) AND (dbo.PART.PART IN
                              (SELECT        PART
                                FROM            dbo.v3pl_3plSKU AS v3pl_SKU_1)) AND (dbo.ORDERITEMS.ZTRX_3PLSENT <> 'Y') AND (dbo.ORDERITEMS.DUEDATE - 1440 * 7 < dbo.DATETOMIN(GETDATE())) AND 
-                         (dbo.ORDERITEMS.CLOSED = '') AND (dbo.ORDERITEMS.TBALANCE / 1000 > 0) AND (dbo.ORDERITEMS.ZTRX_RESERVED = '') AND (dbo.ORDERS.ORDNAME = 'S190000030')
+                         (dbo.ORDERITEMS.CLOSED = '') AND (dbo.ORDERITEMS.TBALANCE / 1000 > 0) AND (dbo.ORDERITEMS.ZTRX_RESERVED = '')
 ORDER BY dbo.ORDERS.CUST, dbo.ORDERS.ORD, dbo.ORDERITEMS.KLINE
 
 GO
-/****** Object:  UserDefinedFunction [dbo].[v3pl_SO]    Script Date: 08/03/2019 11:25:27 ******/
+/****** Object:  UserDefinedFunction [dbo].[v3pl_SO]    Script Date: 16/03/2019 14:53:50 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -482,6 +487,7 @@ RETURN
 	     
 		dbo.v_3pl_SorderItems.ORD, 
 		dbo.v_3pl_SorderItems.DUEDATE, 
+		dbo.v_3pl_SorderItems.ORDNAME						as par,
 		'ODH'                                              AS Record_Type, 
 		'U'                                                AS Merge_Action, 
 		'Released'                                         AS Status, 
@@ -534,7 +540,9 @@ RETURN
 		inner join dbo.STATES
 			on dbo.STATES.STATEID =  dbo.v_3pl_SorderItems.STATEID
 
-	GROUP  BY dbo.v_3pl_SorderItems.ORD, 
+	GROUP  BY 
+		dbo.v_3pl_SorderItems.ORDNAME,
+		dbo.v_3pl_SorderItems.ORD, 
 		dbo.v_3pl_SorderItems.Customer_ID, 
 		dbo.v_3pl_SorderItems.Address1, 
 		dbo.v_3pl_SorderItems.Address2, 
@@ -558,7 +566,7 @@ RETURN
 		dbo.v_3pl_SorderItems.Service_Level 
 )
 GO
-/****** Object:  UserDefinedFunction [dbo].[v3pl_poi]    Script Date: 08/03/2019 11:25:27 ******/
+/****** Object:  UserDefinedFunction [dbo].[v3pl_poi]    Script Date: 16/03/2019 14:53:50 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -604,7 +612,7 @@ RETURN
 
 
 GO
-/****** Object:  UserDefinedFunction [dbo].[v3pl_soi]    Script Date: 08/03/2019 11:25:27 ******/
+/****** Object:  UserDefinedFunction [dbo].[v3pl_soi]    Script Date: 16/03/2019 14:53:50 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -635,7 +643,7 @@ RETURN
 		PARTNAME                                   AS Sku_Id, 
 		QUANT                                      AS Qty_Ordered, 
 		ORDNAME                                    AS User_Def_Type_1, 
-		ORDI                                       AS User_Def_Num_3, 
+		OLINE                                      AS User_Def_Num_3, 
 		Product_Currency, 
 		Customer_Sku_Id, 
 		Product_Price , 
@@ -651,7 +659,7 @@ RETURN
 
 
 GO
-/****** Object:  UserDefinedFunction [dbo].[v3pl_WT]    Script Date: 08/03/2019 11:25:27 ******/
+/****** Object:  UserDefinedFunction [dbo].[v3pl_WT]    Script Date: 16/03/2019 14:53:50 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -709,7 +717,7 @@ RETURN
 --SELECT * FROM [dbo].[v3pl_WT]('WT11008864')
 
 GO
-/****** Object:  UserDefinedFunction [dbo].[v3pl_wti]    Script Date: 08/03/2019 11:25:27 ******/
+/****** Object:  UserDefinedFunction [dbo].[v3pl_wti]    Script Date: 16/03/2019 14:53:50 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON

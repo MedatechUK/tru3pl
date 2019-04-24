@@ -19,7 +19,7 @@ Public Class OutboundPO : Inherits Upload
                 Case Else
                     ret = New SqlCommand(
                         String.Format(
-                            "SELECT * from v3pl_PO() where par = '{0}'",
+                            "SELECT * from v3pl_PO() where Pre_Advice_Id = '{0}'",
                             par
                         ), cn
                     )

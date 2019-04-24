@@ -119,6 +119,26 @@ Module Module1
                 args.Colourise(ConsoleColor.Green, "OK")
                 Console.WriteLine()
 
+                args.line("Increment Run Number")
+                Try
+                    Dim inc As New SqlCommand("exec [dbo].[sp_Inc3pl]", cn)
+                    Dim val As New SqlCommand("select [dbo].[sp_3plInc]()", cn2)
+
+                    inc.ExecuteNonQuery()
+                    args.Colourise(ConsoleColor.Green, val.ExecuteScalar)
+
+
+                Catch ex As Exception
+                    With args
+                        .Colourise(ConsoleColor.Red, "FAILURE")
+                        .Log(ex.Message)
+                        .wait()
+
+                    End With
+
+                End Try
+
+
             Catch ex As Exception
                 With args
                     .Colourise(ConsoleColor.Red, "FAILURE")

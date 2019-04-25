@@ -255,8 +255,27 @@ Module Module1
                                             End If
 
                                             While q.Read
+                                                If Not args.Keys.Contains("csv") Then
+                                                    Dim OK As Boolean = False
+                                                    Dim retry As Integer = 1
+                                                    Do
+                                                        Try
+                                                            SOi.update(q(0)).ExecuteNonQuery()
+                                                            OK = True
+
+                                                        Catch ex As Exception
+                                                            If retry > 10 Then
+                                                                Throw ex
+                                                            Else
+                                                                Threading.Thread.Sleep(100 * retry)
+                                                                retry += 1
+                                                            End If
+
+                                                        End Try
+                                                    Loop Until OK
+
+                                                End If
                                                 SOi.write(sw, sl, q)
-                                                If Not args.Keys.Contains("csv") Then SOi.update(q(0)).ExecuteNonQuery()
 
                                             End While
 

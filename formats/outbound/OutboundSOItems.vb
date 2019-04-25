@@ -111,7 +111,7 @@ Public Class OutboundSOItems : Inherits Upload
                     keys(0)
                 ), cn3
             )
-            ret.CommandTimeout = 500
+            ret.CommandTimeout = 5
             Return ret
         End Get
 

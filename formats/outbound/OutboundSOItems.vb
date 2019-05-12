@@ -106,11 +106,12 @@ Public Class OutboundSOItems : Inherits Upload
         Get
             Dim ret = New SqlCommand(
                 String.Format(
-                    "UPDATE ORDERITEMS SET ZTRX_3PLSENT = 'Y' WHERE ORD= {0} AND ORDI= {1}",
+                    "insert into [3plSENT] (TYPE, ID) values ('SO', {1})",
                     _ord,
                     keys(0)
                 ), cn3
             )
+            '"UPDATE ORDERITEMS SET ZTRX_3PLSENT = 'Y' WHERE ORD= {0} AND ORDI= {1}",
             ret.CommandTimeout = 5
             Return ret
         End Get

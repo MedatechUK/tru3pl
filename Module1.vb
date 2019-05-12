@@ -1,5 +1,6 @@
 ﻿Imports System.Data.SqlClient
 Imports System.IO
+Imports System.Net.Mail
 Imports WinSCP
 
 Module Module1
@@ -19,6 +20,8 @@ Module Module1
 
         args = New clArg(arg)
         Try
+
+            Throw New Exception("Testing email notification")
 
 #Region "Handle command line."
 
@@ -256,23 +259,7 @@ Module Module1
 
                                             While q.Read
                                                 If Not args.Keys.Contains("csv") Then
-                                                    Dim OK As Boolean = False
-                                                    Dim retry As Integer = 1
-                                                    Do
-                                                        Try
-                                                            SOi.update(q(0)).ExecuteNonQuery()
-                                                            OK = True
-
-                                                        Catch ex As Exception
-                                                            If retry > 10 Then
-                                                                Throw ex
-                                                            Else
-                                                                Threading.Thread.Sleep(100 * retry)
-                                                                retry += 1
-                                                            End If
-
-                                                        End Try
-                                                    Loop Until OK
+                                                    SOi.update(q(0)).ExecuteNonQuery()
 
                                                 End If
                                                 SOi.write(sw, sl, q)
@@ -295,6 +282,12 @@ Module Module1
                     End Using
 
                 End Using
+
+                If Not args.Keys.Contains("csv") Then
+                    Dim clean As New SqlCommand("exec dbo.[3plMarkSent] 'SO'", cn)
+                    clean.ExecuteNonQuery()
+
+                End If
 
             End If
 
@@ -605,6 +598,21 @@ Module Module1
         Catch ex As Exception
             Console.WriteLine(ex.Message)
             args.Log(ex.Message)
+
+            Dim erMail As New MailMessage("3pl@trutex.com", "hbradley@trutex.com")
+            With erMail
+                With .CC
+                    .Add("wbriggs@trutex.com")
+                    '.Add("si@medatechuk.com")
+                End With
+                .Subject = "3pl runtime error."
+                .Body = ex.Message
+
+                Using c As New SmtpClient("mail.trutex.com")
+                    c.Send(erMail)
+
+                End Using
+            End With
 
         Finally
             args.wait()
